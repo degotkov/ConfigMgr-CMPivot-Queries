@@ -1,0 +1,5 @@
+ComputerSystem | project Device, Domain 
+| join Disk 
+| project Server = strcat(Device,'.',Domain), Name, Space = FreeSpace/(1024*1024*1024)
+| where (Name == 'c:' and Space  < 15 )
+| order by Space asc

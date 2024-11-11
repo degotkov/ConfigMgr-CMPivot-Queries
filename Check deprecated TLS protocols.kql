@@ -1,0 +1,7 @@
+ComputerSystem | project Device, Domain 
+| join kind= leftouter (Registry('HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.0\Server') | where Property == ('Enabled') | project Device, TLS10ServerEnabled = Value)
+| join kind= leftouter (Registry('HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.0\Client') | where Property == ('Enabled') | project Device, TLS10ClientEnabled = Value)
+| join kind= leftouter (Registry('HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.1\Server') | where Property == ('Enabled') | project Device, TLS11ServerEnabled = Value)
+| join kind= leftouter (Registry('HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.1\Client') | where Property == ('Enabled') | project Device, TLS11ClientEnabled = Value)
+| project Device, Domain, Server = strcat(Device,'.',Domain), TLS10ServerEnabled, TLS10ClientEnabled, TLS11ServerEnabled, TLS11ClientEnabled
+| order by Domain asc, Device asc

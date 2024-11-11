@@ -1,0 +1,4 @@
+ComputerSystem | project Device, Domain 
+| join Registry('HKLM:\SOFTWARE\Qualys\QualysAgent\ScanOnDemand\Vulnerability') 
+| where Property == 'ScanOnDemand' and Value != '0'
+| project Device, Domain, Value

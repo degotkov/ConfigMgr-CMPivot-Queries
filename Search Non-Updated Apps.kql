@@ -1,0 +1,17 @@
+ComputerSystem | project Device, Domain 
+| join InstalledSoftware 
+| join OperatingSystem 
+| where (ProductName == 'Google Chrome' and ProductVersion != '129.0.6668.71') 
+	or (ProductName like 'Mozilla Firefox ESR%' and ProductVersion != '115.15.0')
+	or (ProductName like 'Mozilla Firefox (%)' and ProductVersion != '130.0')
+	or (ProductName like 'Java 8 Update%' and ProductVersion != '8.0.4210.9') 
+	or (ProductName like 'Adobe Acrobat Reader%' and ProductVersion != '24.003.20112') 
+	or (ProductName like 'Adobe Acrobat DC%' and ProductVersion != '24.003.20112') 
+	or (ProductName == 'Adobe Acrobat 2020' and ProductVersion != '20.005.30680') 
+	or (ProductName == 'Adobe Acrobat Reader 2020 MUI' and ProductVersion != '20.005.30680') 
+	or (ProductName == 'Adobe Acrobat 2017' and ProductVersion != '17.012.30262') 
+	or (ProductName == 'Adobe Acrobat DC (2015)' and ProductVersion != '15.006.30527')
+	or (ProductName == 'Microsoft Edge' and ProductVersion != '129.0.2792.65') 
+	or (ProductName like 'Microsoft 365 Apps%' and ProductVersion != '16.0.17830.20210')
+| project Device, Server = strcat(Device,'.',Domain), Domain, ProductName, ProductVersion, Caption
+| order by ProductName, ProductVersion

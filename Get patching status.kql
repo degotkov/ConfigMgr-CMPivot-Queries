@@ -1,0 +1,6 @@
+ComputerSystem | project Device, Domain 
+| join kind= leftouter (Process | where (Name == 'tiworker.exe') | project Device,Process = Name)
+| join OperatingSystem 
+| join (File('C:\windows\system32\ntoskrnl.exe') )
+| project Device, Domain, Server = strcat(Device,'.',Domain), Kernel = Version1, LastWriteTime, Process, LastBootUpTime, OperatingSystem = Caption
+| order by Kernel

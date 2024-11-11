@@ -1,0 +1,4 @@
+ComputerSystem 
+| project Device, Domain 
+| join WinEvent('Setup',20m) 
+| project Device, Domain, LevelDisplayName, DateTime, Message, ID 
