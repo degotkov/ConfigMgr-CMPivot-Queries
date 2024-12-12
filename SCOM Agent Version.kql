@@ -1,0 +1,6 @@
+ComputerSystem | project Device, Domain 
+| join OperatingSystem 
+| join kind= leftouter (File('C:\Program Files\Microsoft Monitoring Agent\Agent\MonitoringHost.exe') )
+| join kind= leftouter (InstalledSoftware | where ProductName == 'Microsoft Monitoring Agent')
+| project Device, Server = strcat(Device,'.',Domain), Domain, ProductName, ProductVersion, FileVersion = Version1, Caption
+| order by FileVersion, ProductVersion,Server
